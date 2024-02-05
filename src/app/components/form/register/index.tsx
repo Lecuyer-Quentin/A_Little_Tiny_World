@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import { LoginSchema, LoginSchemaType } from '@/model/Login';
-import { useState, useEffect, useCallback, useTransition } from 'react';
+import { useState, useEffect, useCallback, useTransition, useMemo } from 'react';
 import FormWrapper from '../../container/form';
 import { Button } from '@/components/ui/button';
 import GoogleAuthBtn from "@/app/components/button/authBtn/googleAuth";
@@ -34,7 +34,10 @@ export default function RegisterForm() {
         }
     })
 
-    const regex = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+    const regex = useMemo(() => {
+        return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+    }
+    , [])
 
     const password = form.watch('password')
     const passwordConfirm = form.watch('passwordConfirm')
