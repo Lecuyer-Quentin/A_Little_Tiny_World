@@ -3,8 +3,8 @@
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import { LoginSchema, LoginSchemaType } from '@/model/Login';
-import { useState, useEffect, useCallback, useTransition, useMemo } from 'react';
+import { LoginSchema, LoginSchemaType } from '@/model/login';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import FormWrapper from '../../container/form';
 import { Button } from '@/components/ui/button';
 import GoogleAuthBtn from "@/app/components/button/authBtn/googleAuth";
@@ -13,24 +13,26 @@ import FacebookAuthBtn from "@/app/components/button/authBtn/facebookAuth";
 
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 
 
 export default function RegisterForm() {
-    const [isPending, startTransition] = useTransition()
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState<boolean>(false)
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false)
     const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false)
     const [isPasswordMatchRegex, setIsPasswordMatchRegex] = useState<boolean>(false)
+    const [passwordConfirm, setPasswordConfirm] = useState<string>('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const form = useForm({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
             email: '',
             password: '',
-            passwordConfirm: ''
+            //passwordConfirm: ''
         }
     })
 
@@ -39,8 +41,8 @@ export default function RegisterForm() {
     }
     , [])
 
+    const canSubmit = () => form.formState.isValid && isPasswordMatch && isPasswordMatchRegex
     const password = form.watch('password')
-    const passwordConfirm = form.watch('passwordConfirm')
 
     const handlePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible)
@@ -75,23 +77,34 @@ export default function RegisterForm() {
     }), [checkPasswordMatch, checkPasswordMatchRegex]
 
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         const data = form.getValues()
-        const {email, password} = data as LoginSchemaType
+        const { email, password } = data as LoginSchemaType
         setError(null)
-        startTransition(() => {
+        setSuccess(false)
+        setIsLoading(true)
+        try{
+            const res = await fetch('/api/auth/sign-up', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password })
+            })
+            await res.json()
+        } catch (error) {
+            setError('Une erreur est survenue')
+        }
+        try{
             signIn('credentials', {
                 email,
                 password,
-                redirect: false
-            }).then((res) => {
-                if(res?.error) {
-                    setError(res.error)
-                } else {
-                    setSuccess(true)
-                }
+                callbackUrl: '/'
             })
-        })
+        } catch (error) {
+            setError('Une erreur est survenue sign in')
+        }
     }
 
     const renderPasswordInput = () => {
@@ -100,7 +113,7 @@ export default function RegisterForm() {
                 <input
                     type={isPasswordVisible ? "text" : "password"}
                     placeholder="**********"
-                    {...form.register('password')}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
                     className="w-full p-3 border-2 border-gray-300 rounded-lg"
                 />
                 <button
@@ -123,7 +136,7 @@ export default function RegisterForm() {
                 <input
                     type={isConfirmPasswordVisible ? "text" : "password"}
                     placeholder="**********"
-                    {...form.register('passwordConfirm')}
+                    {...form.register('password')}
                     className="w-full p-3 border-2 border-gray-300 rounded-lg"
                 />
                 <button
@@ -167,9 +180,28 @@ export default function RegisterForm() {
     }
 
 
+    const renderInscriptionBtn = () => {
+        return (
+            isLoading ?
+                <Button disabled>
+                    <AiOutlineLoading3Quarters className="mx-2 h-4 w-4 animate-spin" />
+                    Please wait
+                </Button>
+            :
+            canSubmit() && 
+                <Button 
+                    type="submit"
+                    className="w-full p-3 bg-black text-white rounded-lg hover:bg-black"
+                >
+                    Inscription
+                </Button>
+        )
+    }
+
     const renderForm = () => {
         return(
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-5 w-full">
+            <form onSubmit={handleSubmit}
+                    className="flex flex-col gap-5 w-full">
                 <input
                     type="email"
                     placeholder="Email"
@@ -181,15 +213,7 @@ export default function RegisterForm() {
                 {renderPasswordConfirmation()}
                 {renderRegexPassword()}
 
-                <Button 
-                    type="submit"
-                    className="w-full p-3 bg-black text-white rounded-lg hover:bg-black"
-                >
-                    {isPending 
-                        ? 'Chargement...' 
-                        : 'Inscription'
-                        }
-                </Button>
+                {renderInscriptionBtn()}
 
                 {error && <p className="text-red-500">{error}</p>}
                 {success && <p className="text-green-500">Success</p>}
@@ -213,8 +237,6 @@ export default function RegisterForm() {
         </FormWrapper>
         )
     }
-
-
 
   return renderRegisterForm()
 }
