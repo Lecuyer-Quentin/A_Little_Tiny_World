@@ -7,10 +7,11 @@ import { LoginSchema, LoginSchemaType } from '@/model/login';
 import { useState } from 'react';
 import FormWrapper from '../../container/form';
 import { Button } from '@/components/ui/button';
-import GoogleAuthBtn from "@/app/components/button/authBtn/googleAuth";
-import AppleAuthBtn from "@/app/components/button/authBtn/appleAuth";
-import FacebookAuthBtn from "@/app/components/button/authBtn/facebookAuth";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import AuthBth from '../../button/authBtn';
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
+
 
 
 export default function LoginForm() {
@@ -33,26 +34,22 @@ export default function LoginForm() {
         setError(null)
         setSuccess(false)
         setIsLoading(true)
-        try {
             await signIn('credentials', {
                 email,
                 password,
                 redirect: false
             }).then((res) => {
                 if(res?.error) {
+                    console.log(res.error)
                     setError(res.error)
                     setIsLoading(false)
-                    form.reset()
                 } else {
+                    console.log(res)
                     setSuccess(true)
                     setIsLoading(false)
-                    form.reset()
                 }
             }
             )
-        } catch (error) {
-            setError('An error occured')
-        }
     }
 
     const renderConnectBtn = () => {
@@ -68,8 +65,6 @@ export default function LoginForm() {
                 </Button>
         )
     }
-
-            
 
     const renderForm = () => {
         return(
@@ -102,9 +97,8 @@ export default function LoginForm() {
                 description="Connectez-vous pour accéder à votre compte"
                 textContent="ou connectez-vous avec"
                 social={[
-                    <GoogleAuthBtn key={1}/>,
-                    <AppleAuthBtn key={2}/>,
-                    <FacebookAuthBtn key={3} />
+                    <AuthBth key={1} provider="google" icon={<FcGoogle className="h-5 w-5" />}/>,
+                    <AuthBth key={2} provider="facebook" icon={<FaFacebook className="h-5 w-5" />}/>,
                 ]}
             >
                 {renderForm()}

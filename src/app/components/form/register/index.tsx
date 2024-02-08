@@ -7,13 +7,14 @@ import { LoginSchema, LoginSchemaType } from '@/model/login';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import FormWrapper from '../../container/form';
 import { Button } from '@/components/ui/button';
-import GoogleAuthBtn from "@/app/components/button/authBtn/googleAuth";
-import AppleAuthBtn from "@/app/components/button/authBtn/appleAuth";
-import FacebookAuthBtn from "@/app/components/button/authBtn/facebookAuth";
-
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import AuthBth from '../../button/authBtn';
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
+
+
 
 
 
@@ -227,9 +228,8 @@ export default function RegisterForm() {
             title="Bienvenue dans l'aventure"
             description="Inscrivez-vous pour accéder à toutes les fonctionnalités de l'application"
             social={[
-                <GoogleAuthBtn key={1}/>,
-                <AppleAuthBtn key={2}/>,
-                <FacebookAuthBtn key={3}/>
+                <AuthBth key={1} provider="google" icon={<FcGoogle className="h-5 w-5" />} />,
+                <AuthBth key={2} provider="facebook" icon={<FaFacebook className="h-5 w-5" />} />
             ]}
             textContent="ou inscrivez-vous avec"
         >
