@@ -14,13 +14,11 @@ interface Credentials{
 
 //? This is the configuration for the NextAuth module
 export const options: NextAuthOptions = {
-    adapter: MongoDBAdapter(clientPromise),
-    session: {strategy: "jwt"},
-    secret: process.env.MONGODB_URI as string,
     callbacks: {
         async jwt(parameters) {
             const { token, user } = parameters
             if (user) token.user = user as User
+            if(user) token.role = user.role
             return token
         },  
         async session(parameters) {
@@ -48,6 +46,7 @@ export const options: NextAuthOptions = {
             },
             async authorize(credentials) {
                 const { email, password } = credentials as Credentials
+                console.log('credentials', credentials)
                 try {
                     const user = await authorizeUser({ email, password })
                     return user
@@ -57,6 +56,12 @@ export const options: NextAuthOptions = {
             }
         }),
     ],
+
+   // adapter: MongoDBAdapter(clientPromise),
+   //todo corriger l'erreur
+   //todo ajouter le role de l'utilisateur pour les providers
+
+   pages: {},
 }
 
 export default options
