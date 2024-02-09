@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTrigger} from "@/components/ui/dialog"
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import LoginForm from "@/app/components/form/login";
-import RegisterForm from "@/app/components/form/register";
+import LoginForm from "@/app/features/user/login";
+import RegisterForm from "@/app/features/user/register";
 
 export default function LogModal () {
     const [show, setShow] = useState(false)
