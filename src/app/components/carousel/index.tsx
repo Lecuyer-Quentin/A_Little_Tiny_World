@@ -30,7 +30,12 @@ type CarouselSMProps = {
         return (
             <Carousel 
                 plugins={[
-                    Autoplay({ delay: 9000, stopOnHover: true, waitForAction: true }),
+                    Autoplay({ 
+                        delay: 3000,
+                        stopOnMouseEnter: true,
+                        stopOnInteraction: false,
+                        stopOnFocusIn: true, 
+                    }),
                 ]}
                 opts={{
                     loop: true,
