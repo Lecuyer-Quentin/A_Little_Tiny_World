@@ -3,167 +3,19 @@
 import { NavigationMenu, NavigationMenuContent, NavigationMenuIndicator, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import MenuItem from "../dashboard/menu/menu-item"
+import { menuList } from "./data"
 
-const menuList = [
-  {
-    title: "Categories",
-    href: "/",
-    default_render : () => {
-      return(
-        <div>
-          <h1>Les Categories</h1>
-        </div>
-      )
-    },
-    list:[
-      {
-        title: "Chouchous",
-        href: "/",
-        description: "Les chouchous sont ",
-        render : () => {
-          return(
-            <>
-              <h1>Chouchous</h1>
-              <p>Nos chouchous sont fabriqués à partir de tissus de qualité, et sont disponibles en plusieurs coloris et motifs.</p>
-              <div className='flex flex-col'>
-                <h2>Les Promos</h2>
-                <p>Render prom composant</p>
-              </div>
-              <div className='flex flex-col'>
-                <h2>Les Nouveautés</h2>
-                <p>Render nouveautés composant</p>
-              </div>
-              <div className='flex flex-col'>
-                <h2>Les Best Sellers</h2>
-                <p>Render best sellers composant</p>
-              </div>
-            </>
-          )
-        },
-      },
-      {
-        title: "Lingettes",
-        href: "/",
-        description: "Les lingettes sont ",
-        render : () => {
-          return(
-            <div>
-              <h1>Lingettes</h1>
-            </div>
-          )
-        }
-      },
-      {
-        title: "Bavoirs",
-        href: "/"
-      },
-      {
-        title: "Bavettes",
-        href: "/"
-      },
-      {
-        title: "Coussins",
-        href: "/"
-      },
-      {
-        title: "Pochettes",
-        href: "/"
-      },
-      {
-        title: "Mitaines-Berets",
-        href: "/"
-      },
-      {
-        title: "Snoods",
-        href: "/"
-      },
-      {
-        title: "Créations Uniques",
-        href: "/"
-      },
-    ]
-  },
-  {
-    title: "Accueil",
-    href: "/",
-  },
-  {
-    title: "Prestations",
-    default_render : () => {
-      return(
-        <div>
-          <h1>Les Prestations</h1>
-        </div>
-      )
-    },
-    href: "/prestations",
-    list:[
-      {
-        title: "Retouche",
-        href: "/"
-      },
-      {
-        title: "Formation",
-        href: "/"
-      },
-      {
-        title: "Consulting",
-        href: "/"
-      }
-    ]
-  },
-  {
-    title: "Boutique",
-    href: "/about",
-  },
-  {
-    title: "Contact",
-    href: "/contact",
-  },
-  {
-    title: "L'Atelier",
-    default_render : () => {
-      return(
-        <div>
-          <h1>L&apos;Atelier</h1>
-        </div>
-      )
-    },
-    href: "/atelier",
-    list:[
-      {
-        title: "L'Atelier",
-        href: "/"
-      },
-      {
-        title: "L'Equipe",
-        href: "/"
-      },
-      {
-        title: "Les Partenaires",
-        href: "/"
-      },
-      {
-        title: "Les Evénements",
-        href: "/"
-      },
-      {
-        title: "La Presse",
-        href: "/"
-      },
-      {
-        title: "Les Réseaux",
-        href: "/"
-      },
-      {
-        title: "Les Offres",
-        href: "/"
-      }
-    ]
-  }
-]
+const background = '/images/knitting.jpg'
+
+const renderBackground = () => {
+  return(
+    <div className='absolute top-0 left-0 z-0 w-full h-full border-l-2 border-r-2 border-purple-400'
+         style={{backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.2}}>
+    </div>
+  )
+}
 
 
 type List = {
@@ -181,21 +33,45 @@ type MenuItem = {
 
 export default function Navigation() {
     const router = useRouter()
+    const [lastScrollTop, setLastScrollTop] = useState(0);
+    const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    function handleScroll() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop){
+         setIsVisible(false);
+      } else {
+         setIsVisible(true);
+      }
+      setLastScrollTop(st <= 0 ? 0 : st);
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollTop]);
 
     const [currentContent, setCurrentContent] = useState<JSX.Element | null>(null)
 
     const renderNavigationMenu = (menuList: MenuItem[]) => {
       return(
-        <NavigationMenu onMouseLeave={() => setCurrentContent(null)}>
-          {renderMenuItems(menuList)}
-        </NavigationMenu>
+        <nav style={{transform: isVisible ? 'translateY(0)' : 'translateY(-100%)', transition: 'transform 0.3s ease-in-out'}}
+              className='flex justify-center items-center p-2 bg-white'>
+          <NavigationMenu onMouseLeave={() => setCurrentContent(null)}>
+            {renderMenuItems(menuList)}
+          </NavigationMenu>
+        </nav>
       )
     }
 
     const renderMenuItems = (menuList: MenuItem[]) => {
       return(
         <NavigationMenuList>
+          <div className='flex justify-center items-center flex-wrap'>
           {menuList.map((item, index) => renderMenuItem(item, index))}
+          </div>
         </NavigationMenuList>
       )
     }
@@ -205,7 +81,7 @@ export default function Navigation() {
       return(
         <NavigationMenuItem key={index}>
           {list && 
-          <NavigationMenuTrigger>
+          <NavigationMenuTrigger className="bg-transparent">
             {title}
           </NavigationMenuTrigger>
           }
@@ -229,15 +105,22 @@ export default function Navigation() {
 
       return(
 
-        <NavigationMenuContent className=' border-r-2 border-l-2 border-purple-400'>
+        <NavigationMenuContent>
 
-            <div className='flex justify-between items-center p-4  w-[38rem] '>
+            <div className='flex flex-col justify-between items-center
+                            md:flex md:flex-row md:justify-between md:items-between md:w-[32rem]
+                            '>
+              {renderBackground()}
+            
 
-              <NavigationMenuList className="w-[10rem] flex flex-col border-r-2 border-purple-400 justify-start items-start">
-                {list.map((item, index) => renderMenuSubItem(item, index))}
+              <NavigationMenuList className="">
+                <div className='flex flex-wrap justify-center items-center
+                                md:flex md:flex-col md:justify-start md:items-start'>
+                  {list.map((item, index) => renderMenuSubItem(item, index))}
+                </div>
               </NavigationMenuList>
 
-              <div className='w-[26rem] flex flex-col items-start justify-between'>
+              <div className=' flex flex-col'>
                 {currentContent 
                   ? currentContent 
                   : default_render()
@@ -256,7 +139,9 @@ export default function Navigation() {
       return(
         <NavigationMenuItem key={index}>
           <Button variant={'ghost'}
-                  onClick={() => setCurrentContent(render ? render() : null)}>
+                  onClick={() => setCurrentContent(render ? render() : null)}
+                  //onMouseEnter={() => setCurrentContent(render ? render() : null)}
+                  >
             {title}
           </Button>
         </NavigationMenuItem>
