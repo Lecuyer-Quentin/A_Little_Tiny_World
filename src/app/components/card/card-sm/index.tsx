@@ -23,9 +23,10 @@ export default function CardSM({ data }: CardSMProps) {
 
     const {_id, title, description, image, alt } = data
     const router = useRouter()
+    const url = `/products/${_id}`
 
     const handleClick = () => {
-        router.push(`/product/${_id}`)
+        router.push(url)
     }
     const handleMouseEnter = () => {
         setIsHover(true)

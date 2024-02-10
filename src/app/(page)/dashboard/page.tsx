@@ -1,11 +1,11 @@
-
+import Products from "@/app/ui/dashboard/products";
 
 
 
 export default function DashboardPage() {
   return (
     <>
-      <h1>Dashboard</h1>
+      <Products />
     </>
   );
 }

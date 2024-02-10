@@ -6,6 +6,7 @@ import { BsBank } from "react-icons/bs";
 import { PiStudentBold } from "react-icons/pi";
 import { IoIosSettings } from "react-icons/io";
 import Menu from "@/app/ui/dashboard/menu";
+import { Button } from "@/components/ui/button";
 
 export default function Sidebar() {
 
@@ -90,17 +91,19 @@ export default function Sidebar() {
     const renderSidebar = () => {
         return (
             <Sheet>
-                <SheetTrigger>Open</SheetTrigger>
-                    <SheetContent side={"left"} className="w-46">
+                <SheetTrigger asChild className="fixed top-0 left-0 z-50 ">
+                    <Button variant={"link"} size={"icon"} >
+                        <MdOutlineDashboard  className="w-8 h-8" />
+                    </Button>
+                </SheetTrigger>
+                    <SheetContent side={"left"} className="w-46 overflow-y-scroll">
                         <SheetHeader>
                             <SheetTitle>Tableau de Bord</SheetTitle>
                             <SheetDescription>
                                 Administration de votre boutique
                               </SheetDescription>
-                        </SheetHeader>
-
+                        </SheetHeader>                            
                         <Menu menuItems={menuItems} />
-
                 </SheetContent>
             </Sheet>
         )

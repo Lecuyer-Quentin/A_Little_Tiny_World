@@ -20,7 +20,9 @@ export default function CardMd ({ data }: { data: Product }) {
     }, [data])        
 
     const {_id, title, description, price, inStock, category } = cardData
-    const url = `/product/${_id}`
+    
+    //! attention à la route
+    const url = `/dashboard/products/${_id}`
 
     const handleMouseEnter = () => {
         setIsHover(true)

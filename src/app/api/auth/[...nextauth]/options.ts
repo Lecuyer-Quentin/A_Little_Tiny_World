@@ -24,6 +24,7 @@ export const options: NextAuthOptions = {
         async session(parameters) {
             const { session, token } = parameters
             if (token) session.user = token.user as User
+            if (token) session.token = token
             return Promise.resolve(session)
         },
     },
@@ -46,7 +47,6 @@ export const options: NextAuthOptions = {
             },
             async authorize(credentials) {
                 const { email, password } = credentials as Credentials
-                console.log('credentials', credentials)
                 try {
                     const user = await authorizeUser({ email, password })
                     return user
@@ -56,9 +56,10 @@ export const options: NextAuthOptions = {
             }
         }),
     ],
-
+   //todo corriger l'erreur de l'adapter
    // adapter: MongoDBAdapter(clientPromise),
-   //todo corriger l'erreur
+
+
    //todo ajouter le role de l'utilisateur pour les providers
 
    pages: {},
