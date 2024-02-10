@@ -7,10 +7,11 @@ type UserOptionProps = {
     name: string | null | undefined;
     email: string | null | undefined;
     image: string | null | undefined;
+    role: string | null | undefined;
 }
 
 
-export default function UserOption({name, email, image}: UserOptionProps) {
+export default function UserOption({name, email, image, role}: UserOptionProps) {
 
 
     const renderAvatar = () => {
@@ -34,11 +35,11 @@ export default function UserOption({name, email, image}: UserOptionProps) {
                 <DropdownMenuContent>
                     <DropdownMenuLabel className="flex items-center space-x-2 gap-2">
                         {image ? renderAvatar() : null}
-                        {name}
+                        {email}
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
 
-                    <OptionList />
+                    <OptionList role={role} />
                     
                 </DropdownMenuContent>
             </DropdownMenu>
