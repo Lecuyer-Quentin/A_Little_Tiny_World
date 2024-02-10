@@ -41,6 +41,28 @@ export const fetchProducts = async () => {
     }
 }
 
+export const getSortedProducts = async () => {
+    const data = await fetchProducts()
+    const sortedData = data.sort((a: Product, b: Product) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
+    return sortedData
+}
+
+export const getProductById = async ( id : string) => {
+    try{
+        const data = await fetchProducts()
+        const product = data.find((product: Product) => product._id === id)
+        if (product){
+            return product
+        } else {
+            throw new Error('Product not found')
+        }
+    } catch (error){
+        throw new Error('Error getting product')
+    }
+}
+
 export const updateProduct = async ( product : Product) => {
     const role = await getSession().then((session) => session?.token.role)
     if (role !== 'admin' && role !== 'dev') {
