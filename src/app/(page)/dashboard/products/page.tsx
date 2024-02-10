@@ -1,7 +1,9 @@
-import React from 'react'
+import Products from "@/app/ui/dashboard/products"
 
 export default function ProductsPage() {
   return (
-    <div>ProductsPage</div>
+    <>
+      <Products />
+    </>
   )
 }
