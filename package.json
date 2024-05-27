@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1",
+    "node-sass": "^9.0.0",
+    "normalize.css": "^8.0.1"
+  },
+  "scripts": {
+    "sass": "sass --watch assets/scss/main.scss assets/style.css",
+    "x_start": "sudo /opt/lampp/lampp start",
+    "x_stop": "sudo /opt/lampp/lampp stop",
+    "x_restart": "sudo /opt/lampp/lampp restart",
+    "install_db": "google-chrome-stable http://localhost/A_Little_Tiny_World/config/install.php",
+    "start_navigator": "google-chrome-stable http://localhost/A_Little_Tiny_World",
+    "give_permission": "sudo chmod -R 777 /opt/lampp/htdocs/A_Little_Tiny_World",
+    "start": "npm run x_start && npm run start_navigator"
+  }
+}
