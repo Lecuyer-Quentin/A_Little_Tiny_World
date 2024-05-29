@@ -92,7 +92,6 @@ function send_mail($send_from, $send_to, $subject, $body) {
                 'allow_self_signed' => true
             )
         );
-        //!
 
         //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
