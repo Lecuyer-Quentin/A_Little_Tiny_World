@@ -33,17 +33,8 @@ class Cart {
             }
         }
         $_SESSION['cart'] = $this->cart;
-
-        //if(isset($_COOKIE['cart'])) {
-        //    $cookieData = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
-//
-        //    if (in_array($this->cart[$id], $cookieData)){
-        //        $key = array_search($$this->cart[$id], $cookieData);
-        //        unset($cookieData[$key]);
-        //        setcookie('cart', json_encode($cookieData), time() + 3600, '/');
-        //    }
-        //}
     }
+    
     public function emptyCart() {
         $this->cart = [];
         $this->total = 0;
@@ -86,7 +77,6 @@ class Cart {
     }
 
     public function displayCart() {
-        var_dump($_COOKIE);
         $output = '';
         if(empty($this->cart)) {
             return "<p>Votre panier est vide</p>
@@ -94,7 +84,6 @@ class Cart {
         }
         $output .= "<article class='d-flex flex-column justify-content-between align-items-center h-100'>";
             $output .= "<ul class='list-group list-group-flush'>";
-            //foreach($_COOKIE['cart'] as $id => $product){
             foreach($this->cart as $id => $product) {
                 $quantity = $product['quantity'];
                 global $pdo;

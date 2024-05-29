@@ -26,7 +26,7 @@ class Card{
 
             $card = "<div class='card m-3 shadow p-10' style='width: 18rem;'>";
                 $card .= "<div class='card-header bg-dark bg-gradient text-light d-flex flex-column justify-content-end position-relative'>";
-                    $card .= "<h5>".$title."</h5>";
+                    $card .= "<h3>".$title."</h3>";
                     $card .= "<p>".$description."</p>";
                     $card .= "<button type='button' data-bs-toggle='collapse' data-bs-target='#test.".$title."' aria-expanded='false' aria-controls='collapseExample ' class='position-absolute top-0 end-0 btn'>";
                         $card .= "<img src='assets/svg/arrow_square_down.svg' alt='arrow' width='20' height='20'>";
