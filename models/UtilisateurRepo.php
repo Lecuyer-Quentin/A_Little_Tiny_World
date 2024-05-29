@@ -304,7 +304,17 @@ class UtilisateurRepo
             return true;
         } catch (PDOException $e) {
             $this->pdo->rollBack();
-            printf('Erreur : %s.\n', $e->getMessage());
+            return false;
+        }
+    }
+
+    public function activate(string $token){
+        $stmt = $this->pdo->prepare('UPDATE ' . $this->table . ' SET isActif = 1 WHERE token = :token');
+        $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+        if ($stmt->execute()) {
+            $stmt->closeCursor();
+            return true;
+        } else {
             return false;
         }
     }
