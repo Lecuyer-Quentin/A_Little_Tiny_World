@@ -40,12 +40,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $avatar = upload_images($avatar, 'images/users/');
 
-
-        $user->create([
+        $data = array(
             'nom' => $nom,
             'prenom' => $prenom,
             'email' => $email,
-            'mot_de_passe' => $password_confirm,
+            'mot_de_passe' => $password,
             'role' => $role,
             'avatar' => $avatar,
             'isActif' => 0,
@@ -56,27 +55,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             'codePostal' => $codePostal,
             'pays' => $pays,
             'telephone' => $telephone,
-        ]);
+        );
 
-        //$response = array(
-        //    'status' => 'success',
-        //    'message' => 'Utilisateur ' . $nom . ' ' . $prenom . ' ajouté avec succès',
-        //    'redirect' => 'index.php?page=admin&section=users',
-        //);
+
+        $user->create($data);
+
+        $send_to = $email;
+        $send_from = 'a_little_tiny_world@atelier.com';
+        $subject = 'Activation de votre compte';
+        $body = 'Bonjour ' . $prenom . ',<br><br>';
+        $body .= 'Veuillez cliquer sur le lien suivant pour activer votre compte : <a href="http://localhost/A_Little_Tiny_World/controllers/auth/activate.php?token=' . $data['token'] . '">Activer mon compte</a>';
+        $body .= '<br><br>Cordialement,<br>L\'équipe A Little Tiny World';
+        send_mail($send_from, $send_to, $subject, $body);
       
     } catch (Exception $e) {
         $msg = 'Erreur lors de l\'ajout de l\'utilisateur : ' . $e->getMessage();
         $errors = $msg;
     }
-
-    //if(!empty($errors)) {
-    //    $response = array(
-    //        'status' => 'error',
-    //        'message' => $errors,
-    //    );
-    //}
-
-    //echo json_encode($response);
 
     header('Location: ../../index.php?page=admin&section=users');
     exit;
