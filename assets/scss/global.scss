@@ -3,6 +3,11 @@ a,ul,li,ol{
     list-style: none;
 
 }
+img{
+    box-sizing: border-box;
+    transition: transform 0.2s;
+    object-fit: cover
+}
 
 section{
     margin-top: 10vh;
