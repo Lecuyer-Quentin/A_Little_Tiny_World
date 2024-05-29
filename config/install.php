@@ -3,20 +3,31 @@ require_once 'db.php';
 global $dsn, $user, $pass, $options;
 global $db;
 
-echo 'Connexion à la base de données...' . '<br>' . '<br>';
-echo 'Voulez-vous réinitialiser la base de données '.`$db`. ' ?' . '<br>';
+
+echo '<section style="display: flex; flex-direction: column; align-items: center;">';
+echo '<h1>Installation de la base de données</h1>';
+echo '<br>';
+
+echo 'Voulez-vous réinitialiser la base de données '.`$db`. ' ?' . '<br><br>';
 echo 'Attention, toutes les données seront perdues' . '<br>';
 echo 'Cette operation supprimera toutes les tables et les données de la base de données' . '<br>';
 echo 'Et créera de nouvelles tables avec des données par défaut' . '<br>' . '<br>';
 
-echo 'Tapez "oui" pour confirmer : ' . '<br>';
-echo '<form method="post" action="install.php">';
-    echo '<input type="text" name="confirmation" placeholder="oui">';
+echo '<div style="display: flex; flex-direction: column; align-items: center;">';
+echo '<h2>Attention</h2>';
+echo 'Cette action est irréversible' . '<br><br>';
+echo 'Tapez "oui" pour confirmer : ' . '';
+echo '<form method="post" action="install.php" style="display: flex; flex-direction: column; align-items: center;">';
+    echo '<input type="text" name="confirmation" placeholder="oui" required autofocus autocomplete="off">';
     echo '<input type="submit" value="Confirmer">';
 echo '</form>';
+echo '</div>';
+
+echo '</section>';
+
 
 if(empty($_POST['confirmation'])){
-    echo 'Veuillez confirmer l\'opération';
+    echo '';
     exit();
 }
 $confirmation = $_POST['confirmation'];
@@ -25,7 +36,9 @@ if ($confirmation !== 'oui') {
     echo 'Opération annulée';
     exit();
 }else{
-    echo 'Opération en cours...' . '<br>' . '<br>';
+    echo '<section style="display: flex; flex-direction: column; align-items: center;">';
+    echo '<h2>Opération en cours...</h2>';
+    echo 'Connexion à la base de données...' . '<br>' . '<br>';
 
     try {
     $conn = connect($dsn, $user, $pass, $options);
@@ -177,10 +190,10 @@ if ($confirmation !== 'oui') {
         echo '<br>' . '<br>';
 
         $conn = null;
-        echo 'Fermeture de la connexion...';
+        echo '<h3>Fermeture de la connexion</h3>';
 
         echo '<br>' . '<br>';
         echo '<a href="../index.php?page=home">Retour à l\'accueil</a>';
-        echo '<br>' . '<br>';
+        echo '</section>';
     }
 }
