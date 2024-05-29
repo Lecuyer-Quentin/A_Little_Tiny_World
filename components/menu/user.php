@@ -35,7 +35,10 @@ function render_menu($menu) {
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     
-                    <?php echo render_menu($user_menu); ?>
+                    <?php //if($user_role == RoleEnum::User->value){
+                            echo render_menu($user_menu); 
+                        //}
+                    ?>
 
                     <?php if($user_role == RoleEnum::Admin->value || $user_role == RoleEnum::Dev->value): ?>
                         <li class="dropdown-divider"></li>
