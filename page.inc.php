@@ -32,29 +32,8 @@ function get_JSON($path, $name, $sub) {
     }
 }
 
-//function errorMSG($msg) {
-//    $data = get_JSON('config.json', 'message', 'error');
-//    if (is_array($data)) {
-//        foreach ($data as $key => $value) {
-//            if (preg_match($key, $msg)) {
-//                return $value;
-//            }
-//        }
-//    }
-//}
 
-//function successMSG($msg) {
-//    $data = get_JSON('config.json', 'message', 'success');
-//    if (is_array($data)) {
-//        foreach ($data as $key => $value) {
-//            if (preg_match($key, $msg)) {
-//                return $value;
-//            }
-//        }
-//    }
-//}
-
-$project_root = $_SERVER['DOCUMENT_ROOT'] . '/A_Little_Tiny_World/';
+$project_root = $_SERVER['DOCUMENT_ROOT'][strlen($_SERVER['DOCUMENT_ROOT']) - 1] === '/' ? $_SERVER['DOCUMENT_ROOT'] . 'A_Little_Tiny_World/' : $_SERVER['DOCUMENT_ROOT'] . '/A_Little_Tiny_World/';
 function get_directory($path) {
     global $project_root;
     $dir = $project_root . $path;
@@ -64,52 +43,77 @@ function get_directory($path) {
         }else{
             echo "Le script n'a pas la permission d'écrire dans le répertoire $project_root";
         }
-       // mkdir($dir, 0777, true);
     }
     return $dir;
 }
 
 function upload_images($image, $path) {
-        $rep = get_directory($path);
-        $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
-        $new_path = $rep . uniqid() . '.' . $extension;
-        move_uploaded_file($image['tmp_name'], $new_path);
-        $image = basename($new_path);
-        return $image;
+    // Vérification de l'extension du fichier
+    $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+    $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
+    if (!in_array($extension, $allowed_extensions)) {
+        return 'Le fichier n\'est pas une image';
+    }
+    // Vérification de la taille du fichier
+    //if ($image['size'] > 1000000) {
+    //    return 'Le fichier est trop volumineux';
+    //}
+    // Vérification de l'upload du fichier
+    if ($image['error'] !== 0) {
+        return 'Une erreur est survenue lors de l\'upload du fichier';
+    }
+    // Déplacement du fichier
+    $rep = get_directory($path);
+    $new_path = $rep . uniqid() . '.' . $extension;
+    move_uploaded_file($image['tmp_name'], $new_path);
+    $image = basename($new_path);
+    return $image;
 }
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-function send_mail($email, $subject, $body) {
-    $mail = new PHPMailer(true);
+
+require_once 'PHPMailer/src/PHPMailer.php';
+require_once 'PHPMailer/src/SMTP.php';
+require_once 'PHPMailer/src/Exception.php';
+
+function send_mail($send_from, $send_to, $subject, $body) {
     try {
-        //Paramètres du serveur SMTP
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail = new PHPMailer(true);
+
+        //! Attention, ces paramètres sont à modifier
+        // PHP n'est pas capable de vérifier le certificat SSL du serveur SMTP.
+        // Une solution possible est de désactiver la vérification du certificat SSL. Cependant, cela devrait être évité dans un environnement de production car cela rend la connexion vulnérable aux attaques de type "man-in-the-middle".
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        //!
+
+        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = 'sandbox.smtp.mailtrap.io';
         $mail->SMTPAuth = true;
-        $mail->Username = '';
-        $mail->Password = '';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = 465;
+        $mail->Port = 2525;
+        $mail->Username = 'a9f603118cece5';
+        $mail->Password = '87d8cdff3816b3';
+        //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
         //Paramètres de l'email
-        $mail->setFrom('', 'E-commerce');
-
-        //Destinataire
-        $mail->addAddress($email);
-
-        //Contenu de l'email
+        $mail->setFrom($send_from, 'Mailer');
+        $mail->addAddress($send_to);
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body = $body;
 
-        //Envoi de l'email
         $mail->send();
         return true;
     } catch (Exception $e) {
-        return false;
+        return $e->getMessage();
     }
 }
 
