@@ -6,7 +6,7 @@
     "normalize.css": "^8.0.1"
   },
   "scripts": {
-    "sass": "sass --watch assets/scss/main.scss assets/style.css",
+    "sass": "sass --watch assets/scss/main.scss assets/custom.css",
     "x_start": "sudo /opt/lampp/lampp start",
     "x_stop": "sudo /opt/lampp/lampp stop",
     "x_restart": "sudo /opt/lampp/lampp restart",
