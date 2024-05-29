@@ -16,6 +16,7 @@ $metaLogo = get_JSON('config.json', 'image', 'metaLogo');
     <meta name="revisit-after" content="7 days">
     <meta name="language" content="fr">
     <meta name="Content-Type" content="text/html">
+    <meta name="theme-color" content="#000000">
 
     <title><?php echo ucfirst($page); ?></title>
     <?php foreach($metaLogo as $item): ?>
@@ -24,6 +25,8 @@ $metaLogo = get_JSON('config.json', 'image', 'metaLogo');
         <?php endif; ?>
     <?php endforeach; ?>
     <link rel="stylesheet" type="text/css" href = "assets/style.css">
+    <link rel="stylesheet" type="text/css" href = "assets/custom.css">
+    <link rel="manifest" href="manifest.webmanifest">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -61,6 +64,20 @@ $metaLogo = get_JSON('config.json', 'image', 'metaLogo');
         
         <script src = "assets/ajax/script.js"></script>
         <script src = "assets/ajax/search.js"></script>
+
+        <script>
+           //if ('serviceWorker' in navigator) {
+           //  window.addEventListener('load', () => {
+           //    navigator.serviceWorker.register('/service-worker.js')
+           //      .then(registration => {
+           //        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+           //      })
+           //      .catch(error => {
+           //        console.log('ServiceWorker registration failed: ', error);
+           //      });
+           //  });
+           //}
+        </script>
        
     </body>
     
