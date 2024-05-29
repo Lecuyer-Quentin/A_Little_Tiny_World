@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'product_add_form', 'product_edit_form', 'product_delete_form',
         'user_add_form', 'user_edit_form', 'user_delete_form', 'edit_password_form',
         'login_form', 'register_form', 'logout_form',
-        'favorite_form',
+        'favorite_form', 'contact_form',
     ];
 
     $array.forEach(function(item) {
