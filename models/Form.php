@@ -100,6 +100,10 @@ class Form
                     case 'checkbox':
                         $input .= "<input type='checkbox' name='{$item['name']}' class='' $required $checked value='{$value}'>";
                         break;
+                    case 'textarea':
+                        $input .= "<textarea name='{$item['name']}' 
+                                        placeholder='{$item['placeholder']}' class='form-control' $required></textarea>";
+                        break;
 
                     default:
                         $input .= "<input type='{$item['type']}' name='{$item['name']}' 
