@@ -18,6 +18,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $check_user = $user->auth($email, $password);
 
         if ($check_user) {
+
+            if($check_user->get_value_of('isActif') == 0){
+                $errors = 'Votre compte n\'est pas activé, veuillez vérifier votre boîte mail';
+            }
+
             set_session('user', [
                 'id' => $check_user->get_value_of('id'),
                 'nom' => $check_user->get_value_of('nom'),
