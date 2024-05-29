@@ -24,11 +24,11 @@ $metaLogo = get_JSON('config.json', 'image', 'metaLogo');
             <link rel = "icon" href = "<?php echo $item['src']; ?>">
         <?php endif; ?>
     <?php endforeach; ?>
-    <link rel="stylesheet" type="text/css" href = "assets/style.css">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href = "assets/custom.css">
     <link rel="manifest" href="manifest.webmanifest">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
     <body class="container container-fluid min-vh-100 min-vw-100 overflow-y-auto overflow-x-hidden
@@ -61,23 +61,8 @@ $metaLogo = get_JSON('config.json', 'image', 'metaLogo');
         <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        
         <script src = "assets/ajax/script.js"></script>
         <script src = "assets/ajax/search.js"></script>
-
-        <script>
-           //if ('serviceWorker' in navigator) {
-           //  window.addEventListener('load', () => {
-           //    navigator.serviceWorker.register('/service-worker.js')
-           //      .then(registration => {
-           //        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-           //      })
-           //      .catch(error => {
-           //        console.log('ServiceWorker registration failed: ', error);
-           //      });
-           //  });
-           //}
-        </script>
        
     </body>
     
