@@ -188,10 +188,11 @@ class ProduitRepo
     }
     public function search(string $keyword)
     {
-        $stmt = $this->pdo->prepare($this->query_select() . ' WHERE p.nom LIKE :keyword OR p.description LIKE :keyword');
+        $stmt = $this->pdo->prepare($this->query_select() . ' WHERE p.nom LIKE :keyword OR p.description LIKE :keyword2');
         $keyword = htmlspecialchars(strip_tags($keyword));
         $keyword = "%$keyword%";
         $stmt->bindParam(':keyword', $keyword, PDO::PARAM_STR);
+        $stmt->bindParam(':keyword2', $keyword, PDO::PARAM_STR);
 
         if($stmt->execute()){
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
