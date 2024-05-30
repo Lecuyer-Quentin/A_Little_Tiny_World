@@ -9,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $response = array(
             'status' => 'success',
             'message' => 'Vous êtes déconnecté',
-            'redirect' => $_SERVER['HTTP_REFERER'],
+            'redirect' => 'index.php?page=home'
         );
     } catch (PDOException $e) {
         $response = array(
