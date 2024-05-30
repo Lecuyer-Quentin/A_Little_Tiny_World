@@ -1,4 +1,4 @@
-    <form id="search-form" action="controllers/product/search.php" method="POST">
+    <form id="search-form" action="controllers/search/search.php" method="POST">
         <div class="input-group">
             <input type="text" class="form-control" name="search" placeholder="À l'assaut de la perle rare" id="search-input">
             <button type="submit" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#search_result_offcanvas" aria-controls="offcanvasExample">
