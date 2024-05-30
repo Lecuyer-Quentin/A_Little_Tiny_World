@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', function(){
                     $('#search-result').append(data.results);
                 }
                 if(data.status == 'error') {
-                    search_result.innerHTML = data.results;
+                    search_result.innerHTML = data.message;
                 }
             });
             req.fail(function(jqXhr, data){
-                $('#search-result').html('Error: ' + data.results);
+                $('#search-result').html('Error: ' + data.message);
             });
         });
     });
