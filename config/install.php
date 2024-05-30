@@ -170,8 +170,8 @@ if ($confirmation !== 'oui') {
                         VALUES ('User'), ('Admin'), ('Dev')");
         $conn->exec("INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, numRue, nomRue, codePostal, ville, pays, telephone, avatar, isActif, token) 
                         VALUES ('Admin', 'Admin', 'admin@admin.com','".password_hash('admin', PASSWORD_BCRYPT)."','1', 'rue de l''admin', '75000', 'Paris', 'France', '0123456789', '', TRUE, UUID()), 
-                                ('User', 'User', 'user@user.com','".password_hash('user', PASSWORD_BCRYPT)."','1', 'rue de l''user', '75000', 'Paris', 'France', '0123456789', '', FALSE, UUID()),
-                                ('Dev', 'Dev', 'dev@dev.com','".password_hash('dev', PASSWORD_BCRYPT)."','1', 'rue du dev', '75000', 'Paris', 'France', '0123456789', '', FALSE, UUID())");
+                                ('User', 'User', 'user@user.com','".password_hash('user', PASSWORD_BCRYPT)."','1', 'rue de l''user', '75000', 'Paris', 'France', '0123456789', '', TRUE, UUID()),
+                                ('Dev', 'Dev', 'dev@dev.com','".password_hash('dev', PASSWORD_BCRYPT)."','1', 'rue du dev', '75000', 'Paris', 'France', '0123456789', '', TRUE, UUID())");
         $conn->exec("INSERT INTO utilisateur_role (fkIdUtilisateur, fkIdRole) 
                         VALUES (1, 2), (2, 1), (3, 3)");
         
