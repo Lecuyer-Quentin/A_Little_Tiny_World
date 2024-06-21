@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = array(
             'status' => 'success',
             'message' => "Le Produit " . $nom . " a été ajouté avec succès.". "<br />" . "Categorie: " . $categorie . "<br />" . "Special: " . $special,
-            'redirect' => RACINE_SITE . '../../index.php?page=admin&section=products'
+            'redirect' => RACINE_SITE . 'index.php?page=admin&section=products'
         );
     } catch (Exception $e) {
         $errors = 'Une erreur est survenue';

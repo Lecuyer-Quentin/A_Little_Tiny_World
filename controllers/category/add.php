@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = [
             'status' => 'success',
             'message' => 'La catégorie ' . $nom . ' a été ajoutée avec succès',
-            'redirect' => RACINE_SITE. '../../index.php?page=admin&section=category'
+            'redirect' => RACINE_SITE. 'index.php?page=admin&section=category'
         ];
     } catch(PDOException $e) {
         $response = [

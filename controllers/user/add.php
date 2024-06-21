@@ -73,6 +73,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors = $msg;
     }
 
-    header('Location: ' . RACINE_SITE . '../../index.php?page=admin&section=users');
+    header('Location: ' . RACINE_SITE . 'index.php?page=admin&section=users');
     exit;
 }

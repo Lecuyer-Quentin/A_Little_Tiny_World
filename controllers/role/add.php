@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = [
             'status' => 'success',
             'message' => 'Le rôle ' . $nom . ' a été ajouté avec succès',
-            'redirect' => RACINE_SITE . '../../index.php?page=admin&section=roles'
+            'redirect' => RACINE_SITE . 'index.php?page=admin&section=roles'
         ];
     } catch(Exception $e) {
         $errors = 'Erreur lors de l\'ajout du rôle : ' . $e->getMessage();
