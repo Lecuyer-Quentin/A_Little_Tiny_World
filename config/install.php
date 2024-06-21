@@ -1,5 +1,6 @@
 <?php
 require_once 'db.php';
+require_once 'page.inc.php';
 global $dsn, $user, $pass, $options;
 global $db;
 
@@ -193,7 +194,7 @@ if ($confirmation !== 'oui') {
         echo '<h3>Fermeture de la connexion</h3>';
 
         echo '<br>' . '<br>';
-        echo '<a href="../index.php?page=home">Retour à l\'accueil</a>';
+        echo '<a href="'.RACINE_SITE.'index.php">Retour à l\'accueil</a>';
         echo '</section>';
     }
 }
