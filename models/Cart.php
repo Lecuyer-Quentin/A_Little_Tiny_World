@@ -80,7 +80,7 @@ class Cart {
         $output = '';
         if(empty($this->cart)) {
             return "<p>Votre panier est vide</p>
-            <a href='index.php?page=products' class='btn btn-primary'>Découvrir nos produits</a>";
+            <a href='".RACINE_SITE."index.php?page=products' class='btn btn-primary'>Découvrir nos produits</a>";
         }
         $output .= "<article class='d-flex flex-column justify-content-between align-items-center h-100'>";
             $output .= "<ul class='list-group list-group-flush'>";
@@ -106,14 +106,14 @@ class Cart {
                 $output .= "<p>Nombre d'articles: ".$this->count."</p>";
 
                 $output .= "<div class='d-flex justify-content-center mb-3'>";
-                    $output .= "<a href='cart.php' class='btn btn-primary m-1'>Voir le panier</a>";
+                    $output .= "<a href='".RACINE_SITE."index.php?page=cart.php' class='btn btn-primary m-1'>Voir le panier</a>";
                     $output .= "<form action='controllers/cart/destroy.php' method='post'>";
                         $output .= "<button type='submit' class='btn btn-danger m-1'>Vider le panier</button>";
                     $output .= "</form>";
                 $output .= "</div>";
 
                 $output .="<div>";
-                    $output .= "<a href='checkout.php' type='button' class='btn btn-success'>Commander</a>";
+                    $output .= "<a href='".RACINE_SITE."index.php?page=checkout.php' type='button' class='btn btn-success'>Commander</a>";
                 $output .= "</div>";
 
             $output .= "</aside>";

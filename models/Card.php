@@ -34,7 +34,7 @@ class Card{
                 $card .= "</div>";
 
                 $card .= "<div class='card-body d-flex flex-column justify-content-center'>";
-                    $card .= "<a href='index.php?page=admin&section=".$value."' class='btn btn-primary w-100 mb-2'>";
+                    $card .= "<a href='" .RACINE_SITE."index.php?page=admin&section=".$value."' class='btn btn-primary w-100 mb-2'>";
                         $card .= "<span>Voir les ".ucfirst($title)."</span>";
                     $card .= "</a>";
                 $card .= "</div>";
@@ -43,7 +43,7 @@ class Card{
                     $card .= "<div class='card card-footer'>";
                         if(!empty($footer)){
                             foreach($footer as $f){
-                                $card .= "<a href='index.php?page=admin&section=".$f['value']."' class='btn btn-primary w-100 mb-2'>";
+                                $card .= "<a href='" .RACINE_SITE."index.php?page=admin&section=".$f['value']."' class='btn btn-primary w-100 mb-2'>";
                                     $card .= "<span>Gestions des ".ucfirst($f['title'])."</span>";
                                 $card .= "</a>";
                             }
@@ -109,7 +109,7 @@ class Card{
         $card .= '</div>';
 
             $card .= '<div class="card-footer w-100 d-flex justify-content-between align-items-center">';
-                $card.= '<a href="index.php?page=product&id=' . $id . '" class="btn btn-primary">Voir le produit</a>';
+                $card.= '<a href="'.RACINE_SITE.'index.php?page=product&id=' . $id . '" class="btn btn-primary">Voir le produit</a>';
                 $card .= '<p class="card-text"><strong>Total : ' . $total . ' €</strong></p>';
             $card .=  '</div>';
 
@@ -120,15 +120,15 @@ class Card{
 
     public function card_sm()
     {
-        $card = '<div class="card testHover text-white bg-dark text-center p-2 position-relative" style="width: 8rem; height: 10rem;">';
+        $card = '<a href="'.RACINE_SITE.'index.php?page=product&id=' . $this->get_data_of('id') . '" class="card text-white bg-dark text-center p-2 position-relative" style="width: 8rem; height: 10rem;">';
             $card .= '<img src="' . $this->get_data_of('image') .'" class="card-img w-100 h-100" alt="' . $this->get_data_of('nom') . '">';
-            $card .= '<div class="card-img-overlay w-100 h-100 d-flex flex-column justify-content-end opacity-50">'; 
-                    $card .= '<a href="index.php?page=product&id=' . $this->get_data_of('id') . '" class="btn btn-info text-white d-flex justify-content-around align-items-center">';
-                        $card .=  $this->get_data_of('prix') . ' €';
+            $card .= '<div class="card-img-overlay w-100 h-100 d-flex flex-column justify-content-end">'; 
+                    $card .= '<button class="btn btn-primary text-white d-flex justify-content-around align-items-center">';
+                        $card .= '<strong>' . $this->get_data_of('prix') . ' €</strong>';
                         $card .= '<img src="assets/svg/arrow_right.svg" alt="voir" width="20" height="20">';
-                    $card .= '</a>';
+                    $card .= '</button>';
             $card .= '</div>';
-        $card .= '</div>';
+        $card .= '</a>';
         return $card;
     }
 
@@ -201,7 +201,7 @@ class Card{
             $card .= "</div>";
 
             $card .= "<div class='card-body d-flex flex-column justify-content-center'>";
-                $card .= "<a href=".$this->get_data_of('link')." class='btn btn-primary w-100 mb-2'>";
+                $card .= "<a href=".RACINE_SITE.$this->get_data_of('link')." class='btn btn-primary w-100 mb-2'>";
                     $card .= "<span>Voir les ".ucfirst($title)."</span>";
                 $card .= "</a>";
                 $card .= "</div>";
