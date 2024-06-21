@@ -20,7 +20,7 @@ if(isset($_COOKIE['favorite'])) {
 $favorite = array_unique($favorite);
 
     if(!$_GET['id']){
-        header('Location: index.php');
+        header('Location: ' . RACINE_SITE . 'index.php?page=home');
         exit;
     }
 
@@ -38,9 +38,11 @@ $favorite = array_unique($favorite);
     function render_dashboard($user, $favorite) {
         $html = "<article class='container container d-flex flex-column align-items-start justify-content-start min-vh-100 my-4'>";
         $html .= "<h2>Tableau de bord Utilisateur</h2>";
-        $html .= "<p>Bienvenue sur votre tableau de bord, " . $user->get_value_of('nom') . " " . $user->get_value_of('prenom') . "!</p>";
+        $html .= "<p>Bienvenue sur votre tableau de bord, " . $user->__toString() . "!</p>";
         $html .= render_user_info($user);
+        $html .= "<br /><br />";
         $html .= render_favorite($favorite);
+        $html .= "<br /><br />";
         $html .= render_order();
         $html .= "</article>";
         return $html;
@@ -82,9 +84,6 @@ $favorite = array_unique($favorite);
             $telephone = 'Pas de numéro de téléphone renseigné.';
         }
 
-        //$html = "<article class='container container d-flex flex-column align-items-start justify-content-start'>";
-        //$html .= "<h2>Tableau de bord Utilisateur</h2>";
-        //$html .= "<p>Bienvenue sur votre tableau de bord, " . $user_name . "!</p>";
         $html = "<aside class='card d-flex w-100 flex-column justify-content-between align-items-center p-3'>";
             $html .= "<div class='d-flex w-100 flex-row justify-content-between align-items-center'>";
                 $html .= "<div class='d-flex flex-row align-items-center position-relative'>";
@@ -104,7 +103,7 @@ $favorite = array_unique($favorite);
             $html .= "<div class='collapse pt-3' id='account_collapse'>";
                 $html .= "<div class='card card-header'>";
                     $html .= "<h5>Informations Personnelles</h5>";
-                    $html .= "<a href='index.php?page=account&section=settings&id=" . $id . "' class='btn btn-primary'>Modifier</a>";
+                    $html .= "<a href='" . RACINE_SITE ."index.php?page=account&section=settings&id=" . $id . "' class='btn btn-primary'>Modifier</a>";
                 $html .= "</div>";
             $html .= "<div class='card card-body'>";
                 $html .= "<p><strong>Adresse:</strong><br />" . $address . "</p>";

@@ -7,7 +7,7 @@
     if (isset($_SERVER['HTTP_REFERER'])) {
         echo "<a href='{$_SERVER['HTTP_REFERER']}'>Go back to the previous page</a>";
     } else {
-        echo "<a href='index.php?page=home'>Go back to home</a>";
+        echo "<a href='" .RACINE_SITE ."index.php?page=home'>Go back to home</a>";
     }
     ?>
 </section>
