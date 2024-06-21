@@ -7,7 +7,7 @@
 <article>
     <div class="d-flex justify-content-between align-items-center">
         <h2>Specials</h2>
-        <a href="index.php?page=admin&section=specials&action=add" class="btn btn-success">
+        <a href="<?php echo RACINE_SITE; ?>index.php?page=admin&section=specials&action=add" class="btn btn-success">
             Ajouter un special
         </a>
     </div>
@@ -29,7 +29,7 @@
                         $row .= "<td>$id</td>";
                         $row .= "<td>$nom</td>";
                         $row .= "<td class='d-flex'>";
-                            $row .= "<a href='index.php?page=admin&section=specials&action=edit&id=$id' class='btn btn-primary'>Edit</a>";
+                            $row .= "<a href='". RACINE_SITE ."index.php?page=admin&section=specials&action=edit&id=$id' class='btn btn-primary'>Edit</a>";
                             $row .= "<form action='controllers/special/delete.php' method='post'>";
                                 $row .= "<input type='hidden' name='id' value='$id'>";
                                 $row .= "<button type='submit' class='btn btn-danger'>Delete</button>";

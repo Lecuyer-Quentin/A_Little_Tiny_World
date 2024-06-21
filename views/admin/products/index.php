@@ -9,7 +9,7 @@
 <article>
     <div class="d-flex justify-content-between align-items-center">
         <h2>Produits</h2>
-        <a href="index.php?page=admin&section=products&action=add" class="btn btn-success">
+        <a href="<?php echo RACINE_SITE; ?>index.php?page=admin&section=products&action=add" class="btn btn-success">
             Ajouter un produit
         </a>
     </div>
@@ -50,7 +50,7 @@
                             $row .= "<td class='d-none d-md-table-cell'>$special</td>";
                             $row .= "<td>$stock</td>";
                             $row .= "<td class='d-flex justify-content-around'>";
-                                $row .= "<a href='index.php?page=admin&section=products&action=edit&id=$id' class='btn btn-primary'>Edit</a>";
+                                $row .= "<a href='" . RACINE_SITE ."index.php?page=admin&section=products&action=edit&id=$id' class='btn btn-primary'>Edit</a>";
                                 $row .= delete_product_form($id);
                             $row .= "</td>";
                         $row .= "</tr>";

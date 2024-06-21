@@ -8,7 +8,7 @@
 <article>
     <div class="d-flex justify-content-between align-items-center">
         <h2>Utilisateurs</h2>
-        <a href="index.php?page=admin&section=users&action=add" class="btn btn-success">
+        <a href="<?php echo RACINE_SITE; ?>index.php?page=admin&section=users&action=add" class="btn btn-success">
             Ajouter un utilisateur
         </a>
     </div>
@@ -58,7 +58,7 @@
                             $row .= "<td class='d-none d-xl-table-cell'>$inscription</td>";
 
                             $row .= "<td class='d-flex flex-column justify-content-center'>";
-                                $row .= "<a href='index.php?page=admin&section=users&action=edit&id=$id' class='btn btn-primary mb-2'>Edit</a>";
+                                $row .= "<a href='" . RACINE_SITE ."index.php?page=admin&section=users&action=edit&id=$id' class='btn btn-primary mb-2'>Edit</a>";
                                 $row .= "<form  action='controllers/user/delete.php' method='post'>";
                                     $row .= "<input type='hidden' name='id' value='$id'>";
                                     $row .= "<button type='submit' class='btn btn-danger w-100'>Delete</button>";

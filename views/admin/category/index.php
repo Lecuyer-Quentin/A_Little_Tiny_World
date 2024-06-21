@@ -8,7 +8,7 @@
 <article>
     <div class='d-flex justify-content-between align-items-center'>
         <h2>Catégories</h2>
-        <a href='index.php?page=admin&section=category&action=add' class='btn btn-success'>
+        <a href='<?php echo RACINE_SITE; ?>index.php?page=admin&section=category&action=add' class='btn btn-success'>
             Ajouter une categorie
         </a>
     </div>
@@ -31,7 +31,8 @@
                         $row .= "<td>$id</td>";
                         $row .= "<td>$nom</td>";
                         $row .= "<td class='d-flex'>";
-                            $row .= "<a href='index.php?page=admin&section=category&action=edit&id=$id' class='btn btn-primary'>Edit</a>";
+                            
+                            $row .= "<a href='". RACINE_SITE . "index.php?page=admin&section=category&action=edit&id=$id' class='btn btn-primary'>Edit</a>";
                             $row .= delete_category_form($id);
                         $row .= "</td>";
                     $row .= "</tr>";
