@@ -14,7 +14,7 @@ function render_menu($menu) {
     $html = '';
     foreach($menu as $item) {
         $html .= '<li>
-                    <a class="dropdown-item menu_link" href="' . $item['value'] .'&id='. $id . '"> 
+                    <a class="dropdown-item menu_link" href="'. RACINE_SITE . $item['value'] .'&id='. $id . '"> 
                         <img src="' . $item['icon'] . '" alt="' . $item['label'] . '" class="menu_link_icon">
                         <span>' . $item['label'] . '</span>
                     </a>
@@ -42,20 +42,20 @@ function render_menu($menu) {
 
                     <?php if($user_role == RoleEnum::Admin->value || $user_role == RoleEnum::Dev->value): ?>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item menu_link" href="index.php?page=admin&section=dashboard">
+                        <li><a class="dropdown-item menu_link" href="<?php echo RACINE_SITE . 'index.php?page=admin&section=dashboard'; ?>">
                             <img src="assets/svg/admin.svg" alt="Admin" class="menu_link_icon">
                             <span>Admin</span>
                         </a></li>
                     <?php endif; ?>
                     <li class="dropdown-divider"></li>
                     <li>
-                        <? require_once 'components/form/auth/logout.php'; ?>
+                        <?php require_once 'components/form/auth/logout.php'; ?>
                     </li>
 
                 </ul>
             </div>
-        <?php elseif(!$user): ?>
-            <? require_once 'components/form/auth/login.php'; ?>
+        <?php else: ?>
+            <?php require_once 'components/form/auth/login.php'; ?>
         <?php endif; ?>
     </div>
 </nav>

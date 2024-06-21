@@ -17,7 +17,7 @@
     <ul class="navbar-nav flex-row justify-content-end">
         <?php foreach($items as $item): ?>
             <li class="nav-item mx-2">
-                <a class="nav-link" href="<?php echo $item['value']; ?>"><?php echo $item['label']; ?></a>
+                <a class="nav-link" href="<?php echo RACINE_SITE . $item['value']; ?>"><?php echo $item['label']; ?></a>
             </li>
         <?php endforeach; ?>
     </ul>

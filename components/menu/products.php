@@ -15,7 +15,7 @@ global $pdo;
         <ul class="navbar-nav d-flex flex-row justify-content-center flex-wrap">
             <?php foreach($categories as $category) : ?>
                 <li class="nav-item m-1">
-                    <a href="index.php?page=products&category=<?= $category->get_value_of('id') ?>" class="btn_1">
+                    <a href="<?php echo RACINE_SITE ?>index.php?page=products&category=<?= $category->get_value_of('id') ?>" class="btn_1">
                         <?= $category->get_value_of('nom') ?>
                     </a>
                 </li>
