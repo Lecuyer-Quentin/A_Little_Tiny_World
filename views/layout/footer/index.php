@@ -21,7 +21,7 @@
             ?>
         </div>
         <span>
-            Icon made by <a href=" icons8.com " title="Icons8" target="_blank" rel="noopener noreferrer"> Icons8 </a>
+            Icon made by <a href="icons8.com " title="Icons8" target="_blank" rel="noopener noreferrer"> Icons8 </a>
         </span>
     </div>
 
@@ -33,7 +33,7 @@
                         $list .= "<h3>$item[title]</h3>";
 
                         foreach($item['items'] as $link) {
-                            $list .= "<li><a href='$link[value]'>$link[label]</a></li>";
+                            $list .= "<li><a href='" . RACINE_SITE . "$link[value]'>$link[label]</a></li>";
                         }
                     $list .= "</ul>";
                 $list .= "</div>";

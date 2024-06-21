@@ -25,8 +25,8 @@ $metaLogo = get_JSON('config.json', 'image', 'metaLogo');
         <?php endif; ?>
     <?php endforeach; ?>
 
-    <link rel="stylesheet" type="text/css" href = "node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href = "assets/custom.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href = "<?php echo RACINE_SITE; ?>assets/custom.css">
     <link rel="manifest" href="manifest.webmanifest">
 
 </head>
@@ -51,9 +51,9 @@ $metaLogo = get_JSON('config.json', 'image', 'metaLogo');
                echo $modal_register->modal_content();
            }
 
-            //if(isset($cart)){
+            if(isset($cart)){
                 echo $cart->off_canvas();
-            //}
+            }
 
             require_once 'views/layout/footer/index.php';
         ?>

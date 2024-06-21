@@ -1,4 +1,11 @@
 <?php
+
+define('RACINE_SITE', '/A_Little_Tiny_World/');
+define('RACINE_SERVEUR', $_SERVER['DOCUMENT_ROOT'] . RACINE_SITE);
+define('URL_SITE', 'https://alittletinyworld.go.yj.fr' . RACINE_SITE);
+define('ROOT_SITE', $_SERVER['DOCUMENT_ROOT'] . RACINE_SITE);
+//$project_root = $_SERVER['DOCUMENT_ROOT'][strlen($_SERVER['DOCUMENT_ROOT']) - 1] === '/' ? $_SERVER['DOCUMENT_ROOT'] . 'A_Little_Tiny_World/' : $_SERVER['DOCUMENT_ROOT'] . '/A_Little_Tiny_World/';
+
 enum RoleEnum : int {
     case Guest = 0;
     case User = 1;
@@ -33,15 +40,13 @@ function get_JSON($path, $name, $sub) {
 }
 
 
-$project_root = $_SERVER['DOCUMENT_ROOT'][strlen($_SERVER['DOCUMENT_ROOT']) - 1] === '/' ? $_SERVER['DOCUMENT_ROOT'] . 'A_Little_Tiny_World/' : $_SERVER['DOCUMENT_ROOT'] . '/A_Little_Tiny_World/';
 function get_directory($path) {
-    global $project_root;
-    $dir = $project_root . $path;
+    $dir = ROOT_SITE . $path;
     if(!is_dir($dir)) {
-        if(is_writable($project_root)){
+        if(is_writable(ROOT_SITE)) {
             mkdir($dir, 0777, true);
         }else{
-            echo "Le script n'a pas la permission d'écrire dans le répertoire $project_root";
+            echo "Le script n'a pas la permission d'écrire dans le répertoire" . ROOT_SITE;
         }
     }
     return $dir;
