@@ -23,11 +23,6 @@
      }
      
 ?>
-<pre>
-    <?php //print_r($user); ?>
-    <?php //print_r($roles); ?>
-    <?php //print_r($user_role); ?>
-</pre>
 
     <form id="" class="form" action="controllers/user/edit.php" method="POST" enctype="multipart/form-data">
         <div>
