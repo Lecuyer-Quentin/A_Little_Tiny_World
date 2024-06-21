@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = [
             'status' => 'success',
             'message' => 'La catégorie ' . $nom . ' a été modifiée avec succès',
-            'redirect' => 'index.php?page=admin&section=category'
+            'redirect' => RACINE_SITE .'../../index.php?page=admin&section=category'
         ];
     } catch (Exception $e) {
         $error['category'] = $e->getMessage();
@@ -32,6 +32,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
     }
 
-    echo json_encode($response);
+    //echo json_encode($response);
+    if($response['status'] == 'success') {
+        header('Location: ' . $response['redirect']);
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
     exit;
 }

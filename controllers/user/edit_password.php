@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = [
             'status' => 'success',
             'message' => 'Mot de passe modifié avec succès',
-            'redirect' => 'index.php?page=account&section=dashboard&id=' . $id ,
+            'redirect' => RACINE_SITE.'index.php?page=account&section=dashboard&id=' . $id ,
         ];
         
     } catch (Exception $e) {

@@ -48,11 +48,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //}
 
-        //$response = array(
-        //    'status' => 'success',
-        //    'message' => "Le Produit " . $nom . " a été ajouté avec succès.". "<br />" . "Categorie: " . $categorie . "<br />" . "Special: " . $special,
-        //    'redirect' => 'index.php?page=admin&section=products',
-        //);
+        $response = array(
+            'status' => 'success',
+            'message' => "Le Produit " . $nom . " a été ajouté avec succès.". "<br />" . "Categorie: " . $categorie . "<br />" . "Special: " . $special,
+            'redirect' => RACINE_SITE . '../../index.php?page=admin&section=products'
+        );
     } catch (Exception $e) {
         $errors = 'Une erreur est survenue';
     }
@@ -66,7 +66,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //echo json_encode($response);
 
-    header('Location: ../../index.php?page=admin&section=products');
+    if($response['status'] == 'success') {
+        header('Location: ' . $response['redirect']);
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
     exit;
 }
 

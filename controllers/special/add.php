@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = [
             'status' => 'success',
             'message' => 'Le spécial ' . $nom . ' a été ajouté avec succès',
-            'redirect' => 'index.php?page=admin&section=specials'
+            'redirect' => RACINE_SITE.'index.php?page=admin&section=specials'
         ];
     } catch(PDOException $e) {
         $errors = 'Erreur lors de l\'ajout du spécial : ' . $e->getMessage();

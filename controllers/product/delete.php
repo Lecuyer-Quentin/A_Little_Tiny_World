@@ -12,16 +12,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $product = new ProduitRepo($pdo);
         $nom = $product->read_one($id)->get_value_of('nom');
         $product->delete($id);
-        //$response = [
-        //    'status'=> 'success',
-        //    'message' => 'Le produit ' . $nom .' a été supprimé avec succès.',
-        //    'redirect' => $_SERVER['HTTP_REFERER']
-        //];
+        $response = [
+            'status'=> 'success',
+            'message' => 'Le produit ' . $nom .' a été supprimé avec succès.',
+            'redirect' => $_SERVER['HTTP_REFERER']
+        ];
     } catch (PDOException $e){
         $errors = 'Une erreur est survenue';
     }
 
     //echo json_encode($response);
-    header('Location: ../../index.php?page=admin&section=products');
+    if($response['status'] == 'success'){
+        header('Location: '.$response['redirect']);
+    } else {
+        header('Location: '.$_SERVER['HTTP_REFERER']);
+    }
     exit;
 }

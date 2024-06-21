@@ -11,6 +11,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $send_from = $email;
         $send_to = 'a_little_tiny_world@atelier.com';
         $subject = 'Message de ' . $nom . ' ' . $prenom;
+        $body = $message;
     }
 }
 

@@ -1,4 +1,5 @@
 <?php
+require_once '../../page.inc.php';
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
@@ -9,7 +10,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $response = array(
             'status' => 'success',
             'message' => 'Vous êtes déconnecté',
-            'redirect' => 'index.php?page=home'
+            'redirect' => RACINE_SITE . 'index.php?page=home'
         );
     } catch (PDOException $e) {
         $response = array(

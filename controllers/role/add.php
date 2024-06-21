@@ -4,7 +4,7 @@ require_once '../../page.inc.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(!isset($_POST['nom']) || empty($_POST['nom'])) {
-        $errors['nom'] = 'Le nom est obligatoire';
+        $errors = 'Le nom est obligatoire';
     }
     $nom = strip_tags(htmlspecialchars($_POST['nom']));
 
@@ -14,18 +14,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = [
             'status' => 'success',
             'message' => 'Le rôle ' . $nom . ' a été ajouté avec succès',
-            'redirect' => $_SERVER['HTTP_REFERER']
+            'redirect' => RACINE_SITE . '../../index.php?page=admin&section=roles'
         ];
-    } catch(PDOException $e) {
-        $errors['bdd'] = 'Erreur lors de l\'ajout du rôle : ' . $e->getMessage();
+    } catch(Exception $e) {
+        $errors = 'Erreur lors de l\'ajout du rôle : ' . $e->getMessage();
     }
 
     if(!empty($errors)) {
         $response = [
             'status' => 'error',
-            'message' => 'Erreur lors de l\'ajout du rôle',
+            'message' => $errors
         ];
     }
-    echo json_encode($response);
+    //echo json_encode($response);
+
+    if($response['status'] == 'success') {
+        header('Location: ' . $response['redirect']);
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
     exit;
 }

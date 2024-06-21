@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_SERVER['HTTP_REFERER'])) {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     } else {
-        header('Location: ../index.php');
+        header('Location: ' . RACINE_SITE . 'index.php?page=home');
     }
     exit;
 } else {

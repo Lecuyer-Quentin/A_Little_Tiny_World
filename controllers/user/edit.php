@@ -20,8 +20,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $page = isset($_POST['page']) ? $_POST['page'] : 'home';
 
     ($page == 'admin') 
-        ? $redirect = '../../index.php?page=admin&section=users'
-        : $redirect = '../../index.php?page=account&section=dashboard&id=' . $id;
+        ? $redirect = RACINE_SITE.'../../index.php?page=admin&section=users'
+        : $redirect = RACINE_SITE.'../../index.php?page=account&section=dashboard&id=' . $id;
 
 
     try{
@@ -46,11 +46,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user->update($id, $modify_user);
         
 
-        //$response = [
-        //    'status' => 'success',
-        //    'message' => "L'utilisateur '$nom $prenom' a été mis à jour' avec succès.",
-        //    'redirect' => $redirect,
-        //];
+        $response = [
+            'status' => 'success',
+            'message' => "L'utilisateur '$nom $prenom' a été mis à jour' avec succès.",
+            'redirect' => $redirect,
+        ];
 
     } catch (PDOException $e) {
         $errors = 'Une erreur est survenue';
@@ -61,6 +61,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
     //echo json_encode($response);
-    header('Location: ' . $redirect);
+    if($response['status'] == 'success') {
+        header('Location: ' . $response['redirect']);
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
     exit;
 }

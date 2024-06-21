@@ -20,9 +20,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $response = [
             'status' => 'success',
             'message' => 'Le rôle ' . $nom . ' a été modifié avec succès',
-            'redirect' => $_SERVER['HTTP_REFERER']
+            'redirect' => RACINE_SITE . '../../index.php?page=admin&section=roles'
         ];
-    } catch(PDOException $e) {
+    } catch(Exception $e) {
         $error['role'] = $e->getMessage();
     }
 
@@ -33,6 +33,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         ];
     }
 
-    echo json_encode($response);
+    //echo json_encode($response);
+    if($response['status'] == 'success'){
+        header('Location: ' . $response['redirect']);
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
     exit;
 }

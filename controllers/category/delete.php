@@ -14,11 +14,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $category = new CategorieRepo($pdo);
         $category_name = $category->read_one($id)->get_value_of('nom');
         $category->delete($id);
-        //$response = [
-        //    'status' => 'success',
-        //    'message' => 'La catégorie ' . $category_name . ' a été supprimée avec succès',
-        //    'redirect' => $_SERVER['HTTP_REFERER']
-        //];
+        $response = [
+            'status' => 'success',
+            'message' => 'La catégorie ' . $category_name . ' a été supprimée avec succès',
+            'redirect' => $_SERVER['HTTP_REFERER']
+        ];
     } catch(PDOException $e) {
         $errors = "Erreur lors de la suppression de la catégorie";
         //$response = [
@@ -35,6 +35,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //echo json_encode($response);
-    header('Location: ../../index.php?page=admin&section=category');
+    if($response['status'] == 'success') {
+        header('Location: ' . $response['redirect']);
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
     exit;
 }

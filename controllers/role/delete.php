@@ -19,6 +19,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             'message' => 'Erreur lors de la suppression du rôle'
         ];   
     }
-    echo json_encode($response);
+    //echo json_encode($response);
+    if($response['status'] == 'success') {
+        header('Location: ' . $response['redirect']);
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
     exit;
 }

@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             session_start();
             session_unset();
             session_destroy();
-            header('Location: ../../index.php');
+            header('Location: '.RACINE_SITE.'index.php');
         }
         //$response = [
         //    'status' => 'success',

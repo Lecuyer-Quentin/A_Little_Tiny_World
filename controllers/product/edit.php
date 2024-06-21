@@ -35,16 +35,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             'special' => $special,
             'image' => $image,
         ];
-        var_dump($modify_product);
 
+        $product->update($id, $modify_product);
 
-//$product->update($id, $modify_product);
-
-        //$response = [
-        //    'status' => 'success',
-        //    'message' => 'Le produit '. $nom . ' a été modifié avec success',
-        //    'redirect' => 'index.php?page=admin&section=products'
-        //];
+        $response = [
+            'status' => 'success',
+            'message' => 'Le produit '. $nom . ' a été modifié avec success',
+            'redirect' => RACINE_SITE . '../../index.php?page=admin&section=products'
+        ];
 
     } catch (PDOException $e) {
         $errors= 'Une erreur est survenue.';
@@ -58,6 +56,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     //}
 
     //echo json_encode($response);
-    header('Location: ../../index.php?page=admin&section=products');
+    if($response['status'] == 'success') {
+        header('Location: ' . $response['redirect']);
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
     exit;
 }

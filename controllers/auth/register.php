@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $send_from = 'a_little_tiny_world@atelier.com';
         $subject = 'Activation de votre compte';
         $body = 'Bonjour ' . $prenom . ',<br><br>';
-        $body .= 'Veuillez cliquer sur le lien suivant pour activer votre compte : <a href="http://localhost/A_Little_Tiny_World/controllers/auth/activate.php?token=' . $data['token'] . '">Activer mon compte</a>';
+        $body .= 'Veuillez cliquer sur le lien suivant pour activer votre compte : <a href="'.URL_SITE .'controllers/auth/activate.php?token=' . $data['token'] . '">Activer mon compte</a>';
         $body .= '<br><br>Cordialement,<br>L\'équipe A Little Tiny World';
         send_mail($send_from, $send_to, $subject, $body);
 

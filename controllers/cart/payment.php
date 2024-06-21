@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     try{
         //create_order($order);
         unset($_SESSION['cart']);
-        header('Location: ../index.php?page=profile');
+        header('Location: '.RACINE_SITE.'index.php?page=home');
         exit;
 
     } catch (Exception $e) {

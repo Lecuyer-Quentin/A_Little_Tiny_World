@@ -11,20 +11,20 @@ if(isset($_GET['token']) && !empty($_GET['token'])){
         $response = array(
             //'status' => 'success',
             //'message' => 'Votre compte a bien été activé, vous pouvez vous connecter',
-            'redirect' => '../../index.php?page=home',
+            'redirect' =>  RACINE_SITE . 'index.php?page=home',
         );
     }else{
         $response = array(
             //'status' => 'error',
             //'message' => 'Une erreur est survenue lors de l\'activation de votre compte',
-            'redirect' => '../../index.php?page=home',
+            'redirect' => RACINE_SITE . 'index.php?page=home',
         );
     }
 }else{
     $response = array(
         //'status' => 'error',
         //'message' => 'Token invalide',
-        'redirect' => '../../index.php?page=home',
+        'redirect' => RACINE_SITE . 'index.php?page=home',
     );
 }
 

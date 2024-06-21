@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = [
             'status' => 'success',
             'message' => 'Le spécial ' . $nom . ' a été modifié avec succès',
-            'redirect' => 'index.php?page=admin&section=specials'
+            'redirect' => RACINE_SITE.'index.php?page=admin&section=specials'
         ];
     } catch (Exception $e) {
         $errors = $e->getMessage();
